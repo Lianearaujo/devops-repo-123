@@ -7,6 +7,7 @@ on:
 
 env:
   PROJECT_ID: 'einfo2024'
+  IMAGE_NAME: 'us-east1-docker.pkg.dev/einfo2024/services/devops-image-test-123'
 
 jobs:
   build:
@@ -19,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Altere para a versão necessária
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
@@ -28,6 +29,7 @@ jobs:
 
       - name: Run tests
         run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest tests/ --disable-warnings
 
       - name: Set up Google Cloud CLI
